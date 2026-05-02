@@ -12,8 +12,8 @@ echo
 if [ ! -f "/config/LoxoneConfigSetup.exe" ]; then
   cd /config
   echo "Try to auto download loxone config installer.."
-  # urgh, loxone doesn't provide a direct link to latest installer, lets parse out the download link while we cry a little
-  wget -O i.zip $(wget -O - https://www.loxone.com/enen/support/downloads/ | sed -r 's~(href="|src=")([^"]+).*~\n\1\2~g' | awk -F"=\"" '{print $2}' | grep LoxoneConfigSetup_ |head -1)
+  # urgh, loxone doesn't provide a direct link to latest installer and changed the website lately, lets parse out the download link while we cry a little
+  wget -O i.zip $(wget -O - wget -O - https://www.loxone.com/enen/support/downloads/ 2>/dev/null | ./extract-loxconfig.sh)
   unzip i.zip && rm i.zip
 
   if [ ! -f "/config/LoxoneConfigSetup.exe" ]; then

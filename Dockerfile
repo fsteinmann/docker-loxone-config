@@ -1,9 +1,11 @@
 # force platfrom=linux/386 because alpine x64 doesn't support wine32 and LoxoneConfig is win32
-FROM --platform=linux/386 jlesage/baseimage-gui:alpine-3.19-v4
+# FROM --platform=linux/386 jlesage/baseimage-gui:alpine-3.19-v4
+# LoxoneConfig is finally win64
+FROM jlesage/baseimage-gui:alpine-3.19-v4
 
 ARG XLANG=de
 
-RUN add-pkg mesa-dri-gallium vulkan-loader wine wget xterm cabextract xkeyboard-config setxkbmap
+RUN add-pkg mesa-dri-gallium vulkan-loader wine wget coreutils-from-uutils xterm cabextract xkeyboard-config setxkbmap
 RUN wget -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && \
   chmod +x /usr/bin/winetricks
 
